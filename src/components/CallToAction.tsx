@@ -1,12 +1,17 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Heart, ArrowRight, Sparkles, Globe } from 'lucide-react';
 
 export default function CallToAction() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="relative py-40 overflow-hidden">
@@ -50,7 +55,7 @@ export default function CallToAction() {
       <div ref={ref} className="max-w-5xl mx-auto px-8 relative z-10 text-center">
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-12"
@@ -61,7 +66,7 @@ export default function CallToAction() {
 
         {/* Main Heading */}
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={mounted ? { opacity: 0, y: 30 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-6xl lg:text-8xl font-medium text-white mb-10 leading-tight font-heading"
@@ -73,7 +78,7 @@ export default function CallToAction() {
 
         {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-16 leading-relaxed"
@@ -85,7 +90,7 @@ export default function CallToAction() {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
@@ -111,7 +116,7 @@ export default function CallToAction() {
 
         {/* Trust Indicators */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={mounted ? { opacity: 0 } : false}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.8 }}
           className="flex flex-wrap justify-center gap-10 text-white/60"
@@ -124,7 +129,7 @@ export default function CallToAction() {
           ].map((item, index) => (
             <motion.div
               key={item}
-              initial={{ opacity: 0, y: 10 }}
+              initial={mounted ? { opacity: 0, y: 10 } : false}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 1 + index * 0.1 }}
               className="flex items-center gap-3"
@@ -137,7 +142,7 @@ export default function CallToAction() {
 
         {/* Emotional Closer */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-24 relative"

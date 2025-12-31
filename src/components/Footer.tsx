@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Mail, Twitter, Instagram, Facebook, Youtube, MapPin, Phone, ArrowUp } from 'lucide-react';
 
@@ -18,6 +19,12 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -50,7 +57,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={mounted ? { opacity: 0, y: 20 } : false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="flex items-center gap-3 mb-8"
@@ -86,7 +93,7 @@ export default function Footer() {
           {Object.entries(footerLinks).map(([category, links], index) => (
             <motion.div
               key={category}
-              initial={{ opacity: 0, y: 20 }}
+              initial={mounted ? { opacity: 0, y: 20 } : false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
@@ -112,7 +119,7 @@ export default function Footer() {
 
         {/* Newsletter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="border-t border-white/10 pt-16 mb-16"

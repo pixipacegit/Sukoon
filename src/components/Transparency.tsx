@@ -77,8 +77,13 @@ function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: strin
 }
 
 export default function Transparency() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="impact" className="section-padding bg-white relative overflow-hidden">
@@ -93,13 +98,13 @@ export default function Transparency() {
       <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-24"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
+            initial={mounted ? { opacity: 0, scale: 0.5 } : false}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#7A9E7E]/10 text-[#7A9E7E] mb-8"
@@ -126,7 +131,7 @@ export default function Transparency() {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 40 }}
+              initial={mounted ? { opacity: 0, y: 40 } : false}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
               className="group"
@@ -158,7 +163,7 @@ export default function Transparency() {
 
         {/* Fund Allocation */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="max-w-4xl mx-auto"
@@ -175,7 +180,7 @@ export default function Transparency() {
               {breakdown.map((item, index) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={mounted ? { opacity: 0, x: -20 } : false}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                 >

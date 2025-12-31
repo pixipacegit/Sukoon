@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Quote, MapPin, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 
@@ -48,9 +48,14 @@ const stories = [
 ];
 
 export default function ImpactStories() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const nextStory = () => setCurrentIndex((prev) => (prev + 1) % stories.length);
   const prevStory = () => setCurrentIndex((prev) => (prev - 1 + stories.length) % stories.length);
@@ -64,13 +69,13 @@ export default function ImpactStories() {
       <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <motion.span
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : false}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
             className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
@@ -92,7 +97,7 @@ export default function ImpactStories() {
 
         {/* Story Carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative"

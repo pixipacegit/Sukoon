@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Heart, Users, Globe, Sparkles } from 'lucide-react';
 
@@ -28,8 +28,13 @@ const values = [
 ];
 
 export default function Mission() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="mission" className="section-padding bg-[#FDF8F3] relative overflow-hidden">
@@ -40,13 +45,13 @@ export default function Mission() {
       <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-24"
         >
           <motion.span
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : false}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
             className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
@@ -70,7 +75,7 @@ export default function Mission() {
 
         {/* Quote Block */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={mounted ? { opacity: 0, scale: 0.95 } : false}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative max-w-4xl mx-auto mb-32 p-12 md:p-16 bg-white rounded-3xl shadow-xl"
@@ -91,7 +96,7 @@ export default function Mission() {
           {values.map((value, index) => (
             <motion.div
               key={value.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={mounted ? { opacity: 0, y: 40 } : false}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
               className="group"
@@ -118,7 +123,7 @@ export default function Mission() {
 
         {/* Mission Statement */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-24 text-center"

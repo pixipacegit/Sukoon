@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Cake, Gift, Star, MessageCircle, Users, Heart, Sparkles } from 'lucide-react';
 
@@ -47,8 +47,13 @@ const communityStats = [
 ];
 
 export default function Community() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="community" className="section-padding bg-gradient-to-b from-[#FDF8F3] to-[#FAF7F2] relative overflow-hidden">
@@ -85,13 +90,13 @@ export default function Community() {
       <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
           <motion.span
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : false}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
             className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
@@ -114,7 +119,7 @@ export default function Community() {
 
         {/* Community Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
@@ -122,7 +127,7 @@ export default function Community() {
           {communityStats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={mounted ? { opacity: 0, scale: 0.9 } : false}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               className="text-center p-8"
@@ -140,7 +145,7 @@ export default function Community() {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Live Feed */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={mounted ? { opacity: 0, x: -40 } : false}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
@@ -162,7 +167,7 @@ export default function Community() {
               {celebrations.map((celebration, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={mounted ? { opacity: 0, y: 20 } : false}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                   className="premium-card p-7 hover:shadow-lg transition-all"
@@ -195,7 +200,7 @@ export default function Community() {
 
           {/* Feature Highlight */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={mounted ? { opacity: 0, x: 40 } : false}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:sticky lg:top-32"
@@ -210,7 +215,7 @@ export default function Community() {
 
               <div className="absolute bottom-0 left-0 right-0 p-10">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={mounted ? { opacity: 0, y: 20 } : false}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.8 }}
                   className="glass-dark rounded-2xl p-8"

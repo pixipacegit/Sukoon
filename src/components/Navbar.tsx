@@ -13,10 +13,12 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -27,7 +29,7 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={mounted ? { y: -100 } : false}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -68,7 +70,7 @@ export default function Navbar() {
               <motion.a
                 key={link.name}
                 href={link.href}
-                initial={{ opacity: 0, y: -20 }}
+                initial={mounted ? { opacity: 0, y: -20 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
                 className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${

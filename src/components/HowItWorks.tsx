@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CreditCard, Heart, Users, Gift, Sparkles } from 'lucide-react';
 
@@ -36,8 +36,13 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const [mounted, setMounted] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="how-it-works" className="section-padding bg-[#3D2B1F] relative overflow-hidden">
@@ -51,13 +56,13 @@ export default function HowItWorks() {
       <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto mb-24"
         >
           <motion.span
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : false}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
             className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
@@ -82,7 +87,7 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 40 }}
+              initial={mounted ? { opacity: 0, y: 40 } : false}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
               className="group relative"
@@ -124,7 +129,7 @@ export default function HowItWorks() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={mounted ? { opacity: 0, y: 40 } : false}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
           className="mt-24 text-center"

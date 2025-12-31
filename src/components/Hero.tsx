@@ -1,15 +1,20 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heart, ArrowDown, Play } from 'lucide-react';
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -65,7 +70,7 @@ export default function Hero() {
       >
         {/* Decorative Heart */}
         <motion.div
-          initial={{ scale: 0 }}
+          initial={mounted ? { scale: 0 } : false}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex justify-center mb-12"
@@ -91,7 +96,7 @@ export default function Hero() {
 
         {/* Main Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={mounted ? { opacity: 0, y: 30 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-5xl md:text-7xl lg:text-8xl font-medium text-white mb-10 leading-tight font-heading"
@@ -103,7 +108,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-16 leading-relaxed font-light"
@@ -115,7 +120,7 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={mounted ? { opacity: 0, y: 20 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-24"
@@ -142,7 +147,7 @@ export default function Hero() {
 
         {/* Stats Preview */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={mounted ? { opacity: 0 } : false}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
           className="grid grid-cols-3 gap-12 max-w-3xl mx-auto"
@@ -154,7 +159,7 @@ export default function Hero() {
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={mounted ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4 + index * 0.1 }}
               className="text-center"
@@ -170,7 +175,7 @@ export default function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={mounted ? { opacity: 0 } : false}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
