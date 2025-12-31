@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heart, ArrowDown, Play } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Video/Image with Parallax */}
+      {/* Background Image with Parallax */}
       <motion.div
         style={{ y, scale }}
         className="absolute inset-0 z-0"
@@ -36,17 +36,18 @@ export default function Hero() {
 
       {/* Floating Particles */}
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-[#C9A86C]/30 rounded-full"
+            className="absolute w-2 h-2 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              backgroundColor: 'rgba(201, 168, 108, 0.4)',
             }}
             animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
+              y: [0, -80, 0],
+              opacity: [0.2, 0.8, 0.2],
             }}
             transition={{
               duration: 5 + Math.random() * 5,
@@ -60,30 +61,30 @@ export default function Hero() {
       {/* Content */}
       <motion.div
         style={{ opacity }}
-        className="relative z-20 max-w-5xl mx-auto px-6 text-center"
+        className="relative z-20 max-w-5xl mx-auto px-8 text-center"
       >
-        {/* Decorative Element */}
+        {/* Decorative Heart */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-12"
         >
           <div className="relative">
-            <Heart className="w-16 h-16 text-[#C9A86C] fill-[#C9A86C]/20" />
+            <Heart className="w-20 h-20 text-[#C9A86C]" fill="rgba(201, 168, 108, 0.3)" />
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <div className="w-20 h-20 rounded-full border-2 border-[#C9A86C]/30" />
+              <div className="w-24 h-24 rounded-full border-2 border-[#C9A86C]/40" />
             </motion.div>
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
               animate={{ scale: [1, 1.5, 1] }}
               transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
             >
-              <div className="w-24 h-24 rounded-full border border-[#C9A86C]/20" />
+              <div className="w-32 h-32 rounded-full border border-[#C9A86C]/20" />
             </motion.div>
           </div>
         </motion.div>
@@ -93,8 +94,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-medium text-white mb-6 leading-tight"
-          style={{ fontFamily: 'Playfair Display, serif' }}
+          className="text-5xl md:text-7xl lg:text-8xl font-medium text-white mb-10 leading-tight font-heading"
         >
           Peace isn't just delivered.
           <br />
@@ -106,7 +106,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-16 leading-relaxed font-light"
         >
           For just $1 a month, join a movement that transforms giving into
           belonging. Where every contribution creates connection, and every
@@ -118,12 +118,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-24"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary flex items-center gap-2"
+            className="btn-primary text-lg px-10 py-5"
           >
             <Heart className="w-5 h-5" />
             Begin Your Journey — $1/month
@@ -131,12 +131,12 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 text-white/90 hover:text-white transition-colors px-6 py-3"
+            className="flex items-center gap-4 text-white/90 hover:text-white transition-colors px-6 py-3"
           >
-            <div className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center hover:border-[#C9A86C] hover:bg-[#C9A86C]/10 transition-all">
+            <div className="w-14 h-14 rounded-full border-2 border-white/40 flex items-center justify-center hover:border-[#C9A86C] hover:bg-[#C9A86C]/10 transition-all">
               <Play className="w-5 h-5 ml-1" />
             </div>
-            <span className="font-medium">Watch Our Story</span>
+            <span className="font-medium text-lg">Watch Our Story</span>
           </motion.button>
         </motion.div>
 
@@ -145,7 +145,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-20 grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+          className="grid grid-cols-3 gap-12 max-w-3xl mx-auto"
         >
           {[
             { number: '50K+', label: 'Lives Touched' },
@@ -159,10 +159,10 @@ export default function Hero() {
               transition={{ delay: 1.4 + index * 0.1 }}
               className="text-center"
             >
-              <div className="text-3xl md:text-4xl font-semibold text-[#C9A86C] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <div className="text-4xl md:text-5xl font-semibold text-[#C9A86C] mb-2 font-heading">
                 {stat.number}
               </div>
-              <div className="text-sm text-white/60">{stat.label}</div>
+              <div className="text-sm text-white/60 tracking-wide uppercase">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -173,12 +173,12 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-white/60"
+          className="flex flex-col items-center gap-3 text-white/60"
         >
           <span className="text-xs tracking-widest uppercase">Scroll to discover</span>
           <ArrowDown className="w-5 h-5" />
@@ -186,7 +186,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FDF8F3] to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#FDF8F3] to-transparent z-10" />
     </section>
   );
 }

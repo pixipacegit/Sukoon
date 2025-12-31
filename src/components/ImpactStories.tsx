@@ -58,30 +58,33 @@ export default function ImpactStories() {
   return (
     <section id="stories" className="section-padding bg-[#FAF7F2] relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A86C]/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C4A4A4]/10 rounded-full blur-3xl" />
+      <div className="absolute top-20 left-10 w-80 h-80 bg-[#C9A86C]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-[#C4A4A4]/10 rounded-full blur-3xl" />
 
-      <div ref={ref} className="max-w-7xl mx-auto relative z-10">
+      <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-20"
         >
           <motion.span
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
-            className="inline-block text-sm font-semibold tracking-widest text-[#C9A86C] uppercase mb-4"
+            className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
           >
             Real Stories, Real Impact
           </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[#3D2B1F] mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[#3D2B1F] mb-8 leading-tight font-heading">
             Faces of <span className="text-gradient italic">Hope</span>
           </h2>
-          <div className="decorative-line mx-auto mb-8" />
-          <p className="text-lg text-[#2C2C2C]/70 leading-relaxed">
+
+          <div className="decorative-line mx-auto mb-10" />
+
+          <p className="text-lg md:text-xl text-[#2C2C2C]/70 leading-relaxed">
             Behind every contribution is a story. Behind every story is a person who now knows
             they're not forgotten. These are their voices.
           </p>
@@ -101,7 +104,7 @@ export default function ImpactStories() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="grid lg:grid-cols-2 gap-12 items-center"
+              className="grid lg:grid-cols-2 gap-16 items-center"
             >
               {/* Image Side */}
               <div className="relative">
@@ -113,20 +116,20 @@ export default function ImpactStories() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
                   {/* Name Badge */}
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="glass-dark rounded-2xl p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-[#C9A86C] flex items-center justify-center">
-                          <Heart className="w-6 h-6 text-white fill-white" />
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="glass-dark rounded-2xl p-5">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 rounded-full bg-[#C9A86C] flex items-center justify-center">
+                          <Heart className="w-7 h-7 text-white" fill="white" />
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
+                          <h3 className="text-2xl font-semibold text-white font-heading">
                             {stories[currentIndex].name}, {stories[currentIndex].age}
                           </h3>
-                          <div className="flex items-center gap-1 text-white/70 text-sm">
+                          <div className="flex items-center gap-2 text-white/70 text-sm mt-1">
                             <MapPin className="w-4 h-4" />
                             {stories[currentIndex].location}
                           </div>
@@ -137,26 +140,26 @@ export default function ImpactStories() {
                 </div>
 
                 {/* Decorative Elements */}
-                <div className="absolute -top-4 -left-4 w-24 h-24 border-2 border-[#C9A86C]/30 rounded-3xl" />
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-[#C9A86C]/20 rounded-3xl" />
+                <div className="absolute -top-6 -left-6 w-28 h-28 border-2 border-[#C9A86C]/30 rounded-3xl" />
+                <div className="absolute -bottom-6 -right-6 w-36 h-36 border-2 border-[#C9A86C]/20 rounded-3xl" />
               </div>
 
               {/* Content Side */}
               <div className="lg:pl-8">
-                <div className="relative">
-                  <Quote className="absolute -top-4 -left-4 w-16 h-16 text-[#C9A86C]/20" />
-                  <blockquote className="text-2xl md:text-3xl text-[#3D2B1F] leading-relaxed mb-8 relative z-10" style={{ fontFamily: 'Playfair Display, serif' }}>
+                <div className="relative mb-10">
+                  <Quote className="absolute -top-6 -left-6 w-20 h-20 text-[#C9A86C]/15" />
+                  <blockquote className="text-2xl md:text-3xl lg:text-4xl text-[#3D2B1F] leading-relaxed relative z-10 font-heading">
                     "{stories[currentIndex].quote}"
                   </blockquote>
                 </div>
 
-                <p className="text-[#2C2C2C]/70 leading-relaxed mb-8">
+                <p className="text-lg text-[#2C2C2C]/70 leading-relaxed mb-10">
                   {stories[currentIndex].story}
                 </p>
 
-                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#C9A86C]/10 border border-[#C9A86C]/20">
-                  <Heart className="w-5 h-5 text-[#C9A86C]" />
-                  <span className="text-[#3D2B1F] font-medium">
+                <div className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-[#C9A86C]/10 border border-[#C9A86C]/20">
+                  <Heart className="w-6 h-6 text-[#C9A86C]" />
+                  <span className="text-[#3D2B1F] font-medium text-lg">
                     Impact: {stories[currentIndex].impact}
                   </span>
                 </div>
@@ -165,25 +168,25 @@ export default function ImpactStories() {
           </AnimatePresence>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-12">
+          <div className="flex items-center justify-center gap-6 mt-16">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={prevStory}
-              className="w-12 h-12 rounded-full border-2 border-[#C9A86C] flex items-center justify-center text-[#C9A86C] hover:bg-[#C9A86C] hover:text-white transition-all"
+              className="w-14 h-14 rounded-full border-2 border-[#C9A86C] flex items-center justify-center text-[#C9A86C] hover:bg-[#C9A86C] hover:text-white transition-all"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-7 h-7" />
             </motion.button>
 
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {stories.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
+                  className={`h-3 rounded-full transition-all ${
                     index === currentIndex
-                      ? 'bg-[#C9A86C] w-8'
-                      : 'bg-[#C9A86C]/30 hover:bg-[#C9A86C]/50'
+                      ? 'bg-[#C9A86C] w-10'
+                      : 'bg-[#C9A86C]/30 w-3 hover:bg-[#C9A86C]/50'
                   }`}
                 />
               ))}
@@ -193,9 +196,9 @@ export default function ImpactStories() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={nextStory}
-              className="w-12 h-12 rounded-full border-2 border-[#C9A86C] flex items-center justify-center text-[#C9A86C] hover:bg-[#C9A86C] hover:text-white transition-all"
+              className="w-14 h-14 rounded-full border-2 border-[#C9A86C] flex items-center justify-center text-[#C9A86C] hover:bg-[#C9A86C] hover:text-white transition-all"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-7 h-7" />
             </motion.button>
           </div>
         </motion.div>

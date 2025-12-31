@@ -9,7 +9,7 @@ export default function CallToAction() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-40 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <div
@@ -18,12 +18,12 @@ export default function CallToAction() {
             backgroundImage: `url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2940&auto=format&fit=crop')`,
           }}
         />
-        <div className="absolute inset-0 bg-[#3D2B1F]/80" />
+        <div className="absolute inset-0 bg-[#3D2B1F]/85" />
       </div>
 
-      {/* Floating Elements */}
+      {/* Floating Hearts */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -33,7 +33,7 @@ export default function CallToAction() {
             }}
             animate={{
               y: [0, -50, 0],
-              opacity: [0.2, 0.5, 0.2],
+              opacity: [0.15, 0.4, 0.15],
               scale: [1, 1.2, 1],
             }}
             transition={{
@@ -42,20 +42,20 @@ export default function CallToAction() {
               delay: Math.random() * 4,
             }}
           >
-            <Heart className="w-4 h-4 text-[#C9A86C]/30 fill-[#C9A86C]/20" />
+            <Heart className="w-5 h-5 text-[#C9A86C]/30" fill="rgba(201, 168, 108, 0.2)" />
           </motion.div>
         ))}
       </div>
 
-      <div ref={ref} className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+      <div ref={ref} className="max-w-5xl mx-auto px-8 relative z-10 text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8"
+          className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-12"
         >
-          <Globe className="w-4 h-4 text-[#C9A86C]" />
+          <Globe className="w-5 h-5 text-[#C9A86C]" />
           <span className="text-sm font-medium">Join 12,847+ members worldwide</span>
         </motion.div>
 
@@ -64,8 +64,7 @@ export default function CallToAction() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-5xl lg:text-7xl font-medium text-white mb-6 leading-tight"
-          style={{ fontFamily: 'Playfair Display, serif' }}
+          className="text-5xl md:text-6xl lg:text-8xl font-medium text-white mb-10 leading-tight font-heading"
         >
           One Dollar.
           <br />
@@ -77,7 +76,7 @@ export default function CallToAction() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-16 leading-relaxed"
         >
           Stop scrolling past suffering. Start becoming part of the solution.
           For the cost of a single coffee each month, join a movement that transforms
@@ -89,12 +88,12 @@ export default function CallToAction() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group btn-primary text-lg px-10 py-5 flex items-center gap-3"
+            className="group btn-primary text-lg px-12 py-6"
           >
             <Heart className="w-6 h-6 group-hover:animate-heartbeat" />
             <span>Join Sukoon — $1/month</span>
@@ -104,7 +103,7 @@ export default function CallToAction() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-secondary border-white/30 text-white hover:bg-white hover:text-[#3D2B1F]"
+            className="btn-secondary border-white/30 text-white hover:bg-white hover:text-[#3D2B1F] text-lg"
           >
             Learn More First
           </motion.button>
@@ -115,7 +114,7 @@ export default function CallToAction() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-wrap justify-center gap-8 text-white/60"
+          className="flex flex-wrap justify-center gap-10 text-white/60"
         >
           {[
             'Cancel anytime',
@@ -128,10 +127,10 @@ export default function CallToAction() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 1 + index * 0.1 }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3"
             >
-              <Sparkles className="w-4 h-4 text-[#C9A86C]" />
-              <span className="text-sm">{item}</span>
+              <Sparkles className="w-5 h-5 text-[#C9A86C]" />
+              <span className="text-base">{item}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -141,10 +140,10 @@ export default function CallToAction() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="mt-20 relative"
+          className="mt-24 relative"
         >
-          <div className="glass-dark rounded-3xl p-8 max-w-2xl mx-auto">
-            <p className="text-xl text-white italic leading-relaxed" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <div className="glass-dark rounded-3xl p-10 md:p-12 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-white italic leading-relaxed font-heading">
               "The question isn't whether you can afford to give one dollar.
               <br />
               The question is whether you can afford not to be part of something

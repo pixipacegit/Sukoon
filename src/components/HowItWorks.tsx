@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { CreditCard, Heart, Users, Gift, ArrowRight, Sparkles } from 'lucide-react';
+import { CreditCard, Heart, Users, Gift, Sparkles } from 'lucide-react';
 
 const steps = [
   {
@@ -48,108 +48,75 @@ export default function HowItWorks() {
         }} />
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + (i % 3) * 25}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 10, 0],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              delay: i * 0.5,
-            }}
-          >
-            <Sparkles className="w-4 h-4 text-[#C9A86C]/20" />
-          </motion.div>
-        ))}
-      </div>
-
-      <div ref={ref} className="max-w-7xl mx-auto relative z-10">
+      <div ref={ref} className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-20"
+          className="text-center max-w-3xl mx-auto mb-24"
         >
           <motion.span
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.2 }}
-            className="inline-block text-sm font-semibold tracking-widest text-[#C9A86C] uppercase mb-4"
+            className="inline-block text-sm font-semibold tracking-[0.2em] text-[#C9A86C] uppercase mb-6"
           >
             Simple & Powerful
           </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-tight font-heading">
             How <span className="text-[#C9A86C] italic">$1</span> Changes Everything
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-[#C9A86C] to-[#D4B87A] mx-auto mb-8 rounded-full" />
-          <p className="text-lg text-white/70 leading-relaxed">
+
+          <div className="w-20 h-1 bg-gradient-to-r from-[#C9A86C] to-[#D4B87A] mx-auto mb-10 rounded-full" />
+
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
             We've simplified giving to its purest form. No complicated commitments,
             no hidden fees—just genuine human connection and measurable impact.
           </p>
         </motion.div>
 
         {/* Steps */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
               className="group relative"
             >
-              <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-[#C9A86C]/30 transition-all duration-500 hover:bg-white/10">
+              <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-10 md:p-12 border border-white/10 hover:border-[#C9A86C]/30 transition-all duration-500 hover:bg-white/10 h-full">
                 {/* Step Number */}
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A86C] to-[#D4B87A] flex items-center justify-center shadow-lg">
-                  <span className="text-lg font-bold text-[#3D2B1F]">{step.step}</span>
+                <div className="absolute -top-5 -left-5 w-14 h-14 rounded-full bg-gradient-to-br from-[#C9A86C] to-[#D4B87A] flex items-center justify-center shadow-lg">
+                  <span className="text-xl font-bold text-[#3D2B1F]">{step.step}</span>
                 </div>
 
                 {/* Content */}
-                <div className="ml-8">
-                  <div className="flex items-center gap-4 mb-4">
+                <div className="ml-4 pt-4">
+                  <div className="flex items-center gap-5 mb-6">
                     <motion.div
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.5 }}
-                      className="w-14 h-14 rounded-2xl bg-[#C9A86C]/10 flex items-center justify-center"
+                      className="w-16 h-16 rounded-2xl bg-[#C9A86C]/10 flex items-center justify-center flex-shrink-0"
                     >
-                      <step.icon className="w-7 h-7 text-[#C9A86C]" />
+                      <step.icon className="w-8 h-8 text-[#C9A86C]" />
                     </motion.div>
-                    <h3 className="text-2xl font-semibold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
+                    <h3 className="text-2xl md:text-3xl font-semibold text-white font-heading">
                       {step.title}
                     </h3>
                   </div>
 
-                  <p className="text-white/60 leading-relaxed mb-4">
+                  <p className="text-white/60 leading-relaxed text-lg mb-6">
                     {step.description}
                   </p>
 
-                  <div className="flex items-center gap-2 text-[#C9A86C]">
-                    <Sparkles className="w-4 h-4" />
-                    <span className="text-sm font-medium">{step.highlight}</span>
+                  <div className="flex items-center gap-3 text-[#C9A86C]">
+                    <Sparkles className="w-5 h-5" />
+                    <span className="text-base font-medium">{step.highlight}</span>
                   </div>
                 </div>
-
-                {/* Arrow for desktop */}
-                {index < steps.length - 1 && index % 2 === 0 && (
-                  <motion.div
-                    animate={{ x: [0, 10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2"
-                  >
-                    <ArrowRight className="w-8 h-8 text-[#C9A86C]/30" />
-                  </motion.div>
-                )}
               </div>
             </motion.div>
           ))}
@@ -160,16 +127,16 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-20 text-center"
+          className="mt-24 text-center"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary text-lg px-12 py-5"
+            className="btn-primary text-lg px-14 py-6"
           >
             Start Your $1 Journey Today
           </motion.button>
-          <p className="mt-4 text-white/40 text-sm">
+          <p className="mt-6 text-white/40 text-base">
             Cancel anytime. No questions asked.
           </p>
         </motion.div>
