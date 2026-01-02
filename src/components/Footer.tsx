@@ -1,181 +1,290 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Mail, Twitter, Instagram, Facebook, Youtube, MapPin, Phone, ArrowUp } from 'lucide-react';
+import { Heart, Mail, MapPin, Twitter, Instagram, Facebook, Linkedin, Youtube, Volume2, ArrowRight, Globe, Shield, FileText, ArrowUp } from 'lucide-react';
+import SukoonLogo from './SukoonLogo';
 
 const footerLinks = {
-  'About Us': ['Our Story', 'Mission', 'Team', 'Partners', 'Press'],
-  'Get Involved': ['Join for $1', 'Volunteer', 'Corporate Giving', 'Fundraise', 'Events'],
-  'Impact': ['Stories', 'Transparency', 'Reports', 'Projects', 'Regions'],
-  'Support': ['Help Center', 'Contact Us', 'FAQ', 'Privacy Policy', 'Terms'],
+  'Get Involved': [
+    { name: 'Become a Member', href: '#join' },
+    { name: 'Birthday Archive', href: '#birthdays' },
+    { name: 'Community Wall', href: '#community-wall' },
+    { name: 'Give More', href: '#give-more' },
+  ],
+  'About Sukoon': [
+    { name: 'Our Mission', href: '#mission' },
+    { name: 'How It Works', href: '#how-it-works' },
+    { name: 'Impact Stories', href: '#stories' },
+    { name: 'Transparency', href: '#transparency' },
+  ],
+  'Resources': [
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Press Kit', href: '/press' },
+    { name: 'Partner With Us', href: '/partners' },
+    { name: 'Contact', href: '/contact' },
+  ],
 };
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Youtube, href: '#', label: 'Youtube' },
+  { icon: Twitter, href: 'https://twitter.com/sukoon', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com/sukoon', label: 'Instagram' },
+  { icon: Facebook, href: 'https://facebook.com/sukoon', label: 'Facebook' },
+  { icon: Youtube, href: 'https://youtube.com/sukoon', label: 'YouTube' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/sukoon', label: 'LinkedIn' },
 ];
 
 export default function Footer() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [email, setEmail] = useState('');
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const playPronunciation = () => {
+    // Create speech synthesis for pronunciation
+    const utterance = new SpeechSynthesisUtterance('soo-koon');
+    utterance.rate = 0.7;
+    utterance.pitch = 1;
+
+    setIsPlaying(true);
+    speechSynthesis.speak(utterance);
+
+    utterance.onend = () => setIsPlaying(false);
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle newsletter signup
+    console.log('Newsletter signup:', email);
+    setEmail('');
+  };
+
   return (
-    <footer className="bg-[#1A1A1A] text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #C9A86C 1px, transparent 0)`,
-          backgroundSize: '50px 50px',
-        }} />
-      </div>
+    <footer className="bg-[#3D2B1F] text-white relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A86C]/50 to-transparent" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9A86C]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
       {/* Scroll to Top Button */}
       <div className="relative z-10 flex justify-center -mb-7">
         <motion.button
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1, y: -2 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="w-14 h-14 rounded-full bg-gradient-to-br from-[#C9A86C] to-[#D4B87A] flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
+          className="w-14 h-14 rounded-full bg-gradient-to-br from-[#C9A86C] to-[#D4B87A] flex items-center justify-center shadow-lg hover:shadow-xl hover:shadow-[#C9A86C]/30 transition-shadow"
         >
           <ArrowUp className="w-6 h-6 text-[#3D2B1F]" />
         </motion.button>
       </div>
 
-      <div className="max-w-6xl mx-auto px-8 pt-24 pb-12 relative z-10">
-        {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-16 mb-20">
-          {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <motion.div
-              initial={mounted ? { opacity: 0, y: 20 } : false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-3 mb-8"
-            >
-              <Heart className="w-10 h-10 text-[#C9A86C]" fill="rgba(201, 168, 108, 0.3)" />
-              <span className="text-3xl font-semibold font-heading">
-                Sukoon
-              </span>
-            </motion.div>
+      {/* Main Footer Content */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8 pt-20 pb-12 relative z-10">
+        {/* Top Section - Newsletter */}
+        <div className="grid lg:grid-cols-2 gap-12 pb-16 border-b border-white/10">
+          {/* Left - Branding */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <SukoonLogo size="lg" variant="light" showRipple={false} />
 
-            <p className="text-white/60 leading-relaxed mb-8 text-lg">
-              Reimagining humanitarian work as a living community where peace isn't just
-              delivered—it's shared. Join us for just $1 a month.
+            {/* Pronunciation */}
+            <div className="mt-8 flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl text-white/80" style={{ fontFamily: 'var(--font-nastaliq), serif' }}>
+                  سکون
+                </span>
+                <span className="text-lg text-white/40">|</span>
+                <span className="text-lg text-white/60 italic font-light">soo-KOON</span>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={playPronunciation}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                  isPlaying
+                    ? 'bg-[#C9A86C] text-[#3D2B1F]'
+                    : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
+                }`}
+                title="Listen to pronunciation"
+              >
+                <Volume2 className={`w-5 h-5 ${isPlaying ? 'animate-pulse' : ''}`} />
+              </motion.button>
+            </div>
+
+            <p className="mt-6 text-white/60 max-w-md leading-relaxed">
+              <span className="text-[#C9A86C] font-medium">Sukoon</span> (سکون) means "peace" in Urdu—a state of tranquility
+              that comes from inner calm and harmony. Our mission is to spread this
+              peace, one dollar at a time.
             </p>
 
-            <div className="space-y-4 text-white/60">
-              <div className="flex items-center gap-4">
-                <MapPin className="w-5 h-5 text-[#C9A86C]" />
-                <span>123 Compassion Lane, Hope City</span>
+            {/* Accreditations */}
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              <div className="flex items-center gap-2 text-sm text-white/50">
+                <Shield className="w-5 h-5 text-[#7A9E7E]" />
+                501(c)(3) Verified
               </div>
-              <div className="flex items-center gap-4">
-                <Mail className="w-5 h-5 text-[#C9A86C]" />
-                <span>hello@sukoon.org</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <Phone className="w-5 h-5 text-[#C9A86C]" />
-                <span>+1 (555) 123-4567</span>
+              <div className="flex items-center gap-2 text-sm text-white/50">
+                <Globe className="w-5 h-5 text-[#8BA4B4]" />
+                82+ Nations Impacted
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Link Columns */}
-          {Object.entries(footerLinks).map(([category, links], index) => (
+          {/* Right - Newsletter */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="lg:pl-12"
+          >
+            <h3 className="text-2xl font-heading font-medium mb-4">
+              Stay Connected
+            </h3>
+            <p className="text-white/60 mb-6">
+              Get monthly updates on the impact you're creating. No spam, just stories of hope.
+            </p>
+
+            <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[#C9A86C] transition-colors"
+                  required
+                />
+              </div>
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#C9A86C] to-[#D4B87A] text-[#3D2B1F] font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#C9A86C]/20 transition-shadow"
+              >
+                Subscribe to Peace
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </form>
+
+            {/* Social Links */}
+            <div className="mt-8">
+              <p className="text-sm text-white/40 mb-4">Follow Our Journey</p>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-[#C9A86C] hover:text-[#3D2B1F] transition-all"
+                    title={social.label}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Middle Section - Links */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 py-16 border-b border-white/10">
+          {Object.entries(footerLinks).map(([category, links], categoryIndex) => (
             <motion.div
               key={category}
-              initial={mounted ? { opacity: 0, y: 20 } : false}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: 0.1 * categoryIndex }}
             >
-              <h4 className="text-lg font-semibold text-white mb-6 font-heading">
+              <h4 className="text-sm font-semibold text-[#C9A86C] tracking-wider uppercase mb-6">
                 {category}
               </h4>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
+                  <li key={link.name}>
                     <a
-                      href="#"
-                      className="text-white/60 hover:text-[#C9A86C] transition-colors inline-block"
+                      href={link.href}
+                      className="text-white/60 hover:text-white transition-colors flex items-center gap-2 group"
                     >
-                      {link}
+                      <span className="w-0 group-hover:w-2 h-px bg-[#C9A86C] transition-all" />
+                      {link.name}
                     </a>
                   </li>
                 ))}
               </ul>
             </motion.div>
           ))}
+
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <h4 className="text-sm font-semibold text-[#C9A86C] tracking-wider uppercase mb-6">
+              Contact
+            </h4>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  href="mailto:hello@sukoon.org"
+                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors"
+                >
+                  <Mail className="w-5 h-5" />
+                  hello@sukoon.org
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-white/60">
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <span>
+                  123 Peace Street<br />
+                  New York, NY 10001<br />
+                  United States
+                </span>
+              </li>
+            </ul>
+          </motion.div>
         </div>
 
-        {/* Newsletter */}
-        <motion.div
-          initial={mounted ? { opacity: 0, y: 20 } : false}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="border-t border-white/10 pt-16 mb-16"
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h4 className="text-3xl font-semibold text-white mb-6 font-heading">
-              Stay Connected
-            </h4>
-            <p className="text-white/60 mb-8 text-lg">
-              Receive stories of impact, community celebrations, and updates on how your
-              contribution changes lives.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-8 py-4 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-[#C9A86C] transition-colors flex-1 max-w-md text-lg"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary whitespace-nowrap text-lg"
-              >
-                Subscribe
-              </motion.button>
-            </div>
+        {/* Bottom Section - Copyright */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2 text-white/40 text-sm">
+            <span>© {new Date().getFullYear()} Sukoon Foundation.</span>
+            <span>Made with</span>
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              <Heart className="w-4 h-4 text-[#C4A4A4]" fill="#C4A4A4" />
+            </motion.span>
+            <span>for humanity.</span>
           </div>
-        </motion.div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-white/40 text-sm">
-            © 2024 Sukoon. All rights reserved. Made with{' '}
-            <Heart className="w-4 h-4 inline text-[#C9A86C]" /> for humanity.
-          </p>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-5">
-            {socialLinks.map((social) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-[#C9A86C] hover:text-white transition-all"
-                aria-label={social.label}
-              >
-                <social.icon className="w-5 h-5" />
-              </motion.a>
-            ))}
+          <div className="flex items-center gap-6 text-sm">
+            <a href="/privacy" className="text-white/40 hover:text-white transition-colors flex items-center gap-1">
+              <FileText className="w-4 h-4" />
+              Privacy Policy
+            </a>
+            <a href="/terms" className="text-white/40 hover:text-white transition-colors flex items-center gap-1">
+              <FileText className="w-4 h-4" />
+              Terms of Service
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Decorative Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C9A86C] via-[#D4B87A] to-[#C9A86C]" />
+      {/* Bottom Gradient Bar */}
+      <div className="h-1 w-full bg-gradient-to-r from-[#C4A484] via-[#7A9E7E] to-[#8BA4B4]" />
     </footer>
   );
 }
