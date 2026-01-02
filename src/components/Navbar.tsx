@@ -3,18 +3,21 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Heart } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { name: 'Home', href: '#' },
-  { name: 'About', href: '#about' },
-  { name: 'How It Works', href: '#how-it-works' },
-  { name: 'Impact', href: '#impact' },
-  { name: 'Stories', href: '#stories' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'How It Works', href: '/how-it-works' },
+  { name: 'Impact', href: '/impact' },
+  { name: 'Stories', href: '/stories' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,30 +38,37 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
               <Heart className="w-5 h-5 text-white" fill="white" />
             </div>
             <span className="text-xl font-bold text-gray-900">Sukoon</span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
-                className="text-gray-600 hover:text-amber-600 font-medium transition-colors"
+                className={`font-medium transition-colors ${
+                  pathname === link.href
+                    ? 'text-amber-600'
+                    : 'text-gray-600 hover:text-amber-600'
+                }`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA Button */}
-          <button className="hidden md:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg shadow-amber-500/25">
+          <Link
+            href="/join"
+            className="hidden md:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg shadow-amber-500/25"
+          >
             Join for $1/month
-          </button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -81,21 +91,26 @@ export default function Navbar() {
           >
             <div className="flex flex-col items-center gap-6 p-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-xl font-medium text-gray-700 hover:text-amber-600 transition-colors"
+                  className={`text-xl font-medium transition-colors ${
+                    pathname === link.href
+                      ? 'text-amber-600'
+                      : 'text-gray-700 hover:text-amber-600'
+                  }`}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
-              <button
+              <Link
+                href="/join"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 w-full max-w-xs px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full"
+                className="mt-4 w-full max-w-xs px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full text-center"
               >
                 Join for $1/month
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

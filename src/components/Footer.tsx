@@ -1,11 +1,26 @@
 'use client';
 
 import { Heart, Mail, Twitter, Instagram, Facebook, Youtube } from 'lucide-react';
+import Link from 'next/link';
 
 const footerLinks = {
-  'Company': ['About Us', 'Our Mission', 'Team', 'Careers'],
-  'Support': ['Help Center', 'Contact', 'FAQ', 'Donate'],
-  'Legal': ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
+  'Company': [
+    { name: 'About Us', href: '/about' },
+    { name: 'How It Works', href: '/how-it-works' },
+    { name: 'Impact', href: '/impact' },
+    { name: 'Stories', href: '/stories' },
+  ],
+  'Get Involved': [
+    { name: 'Join Now', href: '/join' },
+    { name: 'Donate More', href: '/join' },
+    { name: 'Volunteer', href: '/about' },
+    { name: 'Partner With Us', href: '/about' },
+  ],
+  'Legal': [
+    { name: 'Privacy Policy', href: '#' },
+    { name: 'Terms of Service', href: '#' },
+    { name: 'Cookie Policy', href: '#' },
+  ],
 };
 
 const socialLinks = [
@@ -22,12 +37,12 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
+            <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" fill="white" />
               </div>
               <span className="text-xl font-bold">Sukoon</span>
-            </div>
+            </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
               Reimagining humanitarian work as a living community where peace isn't just
               delivered—it's shared. Join us for just $1 a month.
@@ -51,10 +66,10 @@ export default function Footer() {
               <h4 className="font-semibold mb-4">{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                      {link}
-                    </a>
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
