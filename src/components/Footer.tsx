@@ -106,7 +106,11 @@ export default function Footer() {
             © {new Date().getFullYear()} Sukoon Foundation. All rights reserved.
           </p>
           <p className="text-gray-400 text-sm flex items-center gap-1">
-            Made with <Heart className="w-4 h-4 text-red-500" fill="currentColor" /> for humanity
+            Made with <Heart className="w-4 h-4 text-red-500" fill="currentColor" /> by{' '}
+            <a href="https://pixipace.com" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:text-amber-400 transition-colors">
+              pixipace
+            </a>{' '}
+            for humanity
           </p>
         </div>
       </div>
